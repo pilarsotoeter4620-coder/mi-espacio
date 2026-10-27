@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mi espacio de trabajo</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#d9486b">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Mi espacio">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+<style>
+:root{--bg:#faf6fb;--card:#fff;--tx:#2b2230;--mu:#7a6c82;--ac:#d9486b;--ac2:#fde7ee;--lil:#e4d5e8;--bd:#eadcee;--sh:0 6px 20px rgba(120,60,120,.10);box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17121b;--card:#221a27;--tx:#f5eef8;--mu:#b3a3bb;--ac:#ff7a9c;--ac2:#3a2231;--lil:#3a2a45;--bd:#352a3d;--sh:none;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#17121b;--card:#221a27;--tx:#f5eef8;--mu:#b3a3bb;--ac:#ff7a9c;--ac2:#3a2231;--lil:#3a2a45;--bd:#352a3d;--sh:none;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}
+.hero{background:linear-gradient(135deg,#7b4fa8,#d9486b 70%,#f59e6b);color:#fff;padding:calc(env(safe-area-inset-top,0px) + 22px) 18px 54px;border-radius:0 0 28px 28px}
+.hero h1{margin:0;font:700 1.55rem/1.2 Georgia,serif}.hero p{margin:6px 0 0;opacity:.92;font-size:.95rem}
+.hero .d{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;opacity:.8;margin-bottom:6px}
+main{max-width:720px;margin:-36px auto 0;padding:0 14px 90px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:var(--sh)}
+h2{font:700 1.05rem Georgia,serif;margin:0 0 10px}
+label{display:block;font-size:.78rem;color:var(--mu);margin:12px 0 4px}
+input,textarea,select{width:100%;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;font-size:.92rem}
+textarea{min-height:90px;resize:vertical}
+.roles{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.roles button,.sub button{padding:9px 14px;border-radius:99px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font:inherit;font-size:.86rem;cursor:pointer}
+.roles button.on,.sub button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.plats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.plats a{display:block;padding:14px 12px;border-radius:14px;color:#fff;text-decoration:none;font-weight:700;min-height:72px;box-shadow:0 4px 12px rgba(0,0,0,.12)}
+.plats a small{display:block;font-weight:500;opacity:.9;margin-top:2px;font-size:.76rem}
+.hint{font-size:.76rem;color:var(--mu);margin-top:10px}
+.btn{padding:11px 16px;border-radius:12px;border:0;background:var(--ac);color:#fff;font:inherit;font-weight:600;cursor:pointer;margin:10px 8px 0 0}
+.btn.g{background:var(--lil);color:var(--tx)}
+.cnt{display:flex;align-items:center;gap:12px}.cnt b{font-size:1.8rem;color:var(--ac)}
+.bar{height:8px;border-radius:9px;background:var(--lil);overflow:hidden;margin-top:8px}.bar i{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
+.nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding:6px 6px calc(env(safe-area-inset-bottom,0px) + 6px);z-index:5}
+.nav button{flex:1;background:none;border:0;color:var(--mu);font:inherit;font-size:.74rem;padding:6px;cursor:pointer}.nav button span{display:block;font-size:1.3rem}.nav button.on{color:var(--ac);font-weight:700}
+.sec{display:none}.sec.on{display:block}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.chip{background:var(--ac2);color:var(--ac);padding:3px 10px;border-radius:99px;font-size:.8rem}
+.sub{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+details{margin-top:6px}summary{cursor:pointer;font-weight:600;color:var(--ac);padding:6px 0}
+#cv{font-family:Georgia,serif;font-size:.92rem}#cv h3{margin:0;font-size:1.4rem}#cv .tt{color:var(--ac)}#cv .ct{color:var(--mu);font-size:.8rem;margin:2px 0 10px;word-break:break-word}
+#cv h4{margin:14px 0 4px;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;border-bottom:1px solid var(--bd);padding-bottom:2px}
+#cv ul{margin:4px 0 8px;padding-left:18px}#cv .r{display:flex;justify-content:space-between;gap:8px;font-weight:bold;margin-top:6px}#cv .r span:last-child{font-weight:normal;color:var(--mu);white-space:nowrap;font-size:.85rem}
+#cv mark{background:var(--ac2);color:inherit;border-radius:3px;padding:0 2px}
+.hero{background:linear-gradient(120deg,#7b4fa8,#d9486b,#f59e6b,#7b4fa8);background-size:300% 300%;animation:gr 12s ease infinite;position:relative;overflow:hidden}
+.hero:before,.hero:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.14);animation:fl 9s ease-in-out infinite}.hero:before{width:150px;height:150px;right:-40px;top:-30px}.hero:after{width:90px;height:90px;left:-20px;bottom:10px;animation-delay:-4s}
+.hero h1,.hero p,.hero .d{position:relative;z-index:1}
+@keyframes gr{0%,100%{background-position:0 50%}50%{background-position:100% 50%}}@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(16px)}}
+@keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.5)}100%{transform:scale(1)}}@keyframes bnc{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+.card{animation:up .5s ease both;transition:transform .2s}.card:hover{transform:translateY(-2px)}
+.plats a{transition:transform .18s,box-shadow .18s}.plats a:hover{transform:translateY(-3px) scale(1.02)}.plats a:active{transform:scale(.97)}
+.btn{transition:transform .15s}.btn:active{transform:scale(.95)}
+.ring{width:160px;height:160px;border-radius:50%;background:conic-gradient(var(--ac) var(--p,0%),var(--lil) 0);display:grid;place-items:center;margin:6px auto}.ring div{width:132px;height:132px;border-radius:50%;background:var(--card);display:grid;place-items:center;font:700 2rem system-ui}
+.gar{display:flex;flex-wrap:wrap;gap:4px;font-size:1.7rem;min-height:44px}.pl{display:inline-block}.pl.pop{animation:pop .5s}
+.ck{display:flex;align-items:center;gap:10px;margin:10px 0 0;font-size:.92rem;color:var(--tx);cursor:pointer}.ck input{width:20px;height:20px;accent-color:var(--ac)}.ck .dn{text-decoration:line-through;color:var(--mu)}
+.ov{display:none;position:fixed;inset:0;background:rgba(30,10,40,.65);z-index:15;place-items:center;padding:18px}.ov.on{display:grid}.ovc{background:var(--card);border-radius:24px;padding:24px;max-width:380px;width:100%;text-align:center;animation:pop .5s}.ovc h2{font-size:1.6rem;color:var(--ac)}.bnc{animation:bnc 1s infinite}
+.toast{position:fixed;top:calc(env(safe-area-inset-top,0px) + 12px);left:50%;transform:translate(-50%,-140px);background:var(--card);border:1px solid var(--ac);color:var(--tx);padding:10px 16px;border-radius:99px;box-shadow:0 6px 20px rgba(0,0,0,.2);z-index:30;transition:transform .35s;font-weight:600;font-size:.9rem;text-align:center}.toast.on{transform:translate(-50%,0)}
+body{background:radial-gradient(circle at 8% 0%,var(--lil),transparent 38%),radial-gradient(circle at 95% 35%,var(--ac2),transparent 34%),var(--bg);background-attachment:fixed}
+.card h2 .chip{font:600 .7rem system-ui;vertical-align:middle;margin-left:6px}
+.lvl{display:flex;justify-content:space-between;align-items:center;gap:8px}.lvl b{font-size:1.15rem}.lvl span{font-size:.75rem;color:var(--mu);text-align:right}
+.mis{background:var(--ac2);border-radius:14px;padding:12px;margin-top:12px;font-size:.93rem}
+.bdg{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.bd{text-align:center;font-size:.66rem;color:var(--mu);padding:8px 2px;border-radius:12px;background:var(--bg);line-height:1.2}.bd i{display:block;font-style:normal;font-size:1.7rem}.bd.off{filter:grayscale(1);opacity:.35}.bd.new{animation:pop .6s}
+.hero{background:linear-gradient(120deg,var(--g1,#7b4fa8),var(--g2,#d9486b),var(--g3,#f59e6b),var(--g1,#7b4fa8));background-size:300% 300%;animation:gr 12s ease infinite}
+.tr{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd);font-size:.9rem}.tr small{color:var(--mu)}.st{border:0;color:#fff;border-radius:99px;padding:6px 10px;font:inherit;font-size:.75rem;cursor:pointer}.x{border:0;background:none;color:var(--mu);font-size:1rem;cursor:pointer;margin-left:4px}
+.wk{display:flex;align-items:flex-end;justify-content:space-between;gap:6px;height:130px}.col{flex:1;text-align:center;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%}.col i{display:block;width:70%;min-height:3px;background:var(--ac);border-radius:6px 6px 0 0;transition:height .4s}.col small{font-size:.65rem;color:var(--mu)}.col b{font-size:.75rem}
+.pb{display:flex;align-items:center;gap:8px;font-size:.82rem;margin-top:8px}.pb span{width:90px}.pb .bar{flex:1;margin:0}
+.pet{display:flex;align-items:center;gap:12px;margin-bottom:12px}.pet span{font-size:3rem;cursor:pointer;animation:bnc 2.4s infinite}.bub{background:var(--ac2);border-radius:14px;padding:8px 12px;font-size:.85rem}
+/* v7 diseño y animación */
+.hero{padding-bottom:62px}.hero h1{font-size:1.75rem;text-shadow:0 2px 12px rgba(0,0,0,.18)}
+.fe{position:absolute;font-size:1.6rem;opacity:.55;animation:fl 7s ease-in-out infinite;pointer-events:none;z-index:0}.fe:nth-child(2){animation-delay:-2s}.fe:nth-child(3){animation-delay:-4s}.fe:nth-child(4){animation-delay:-5.5s}
+main{padding-bottom:110px}
+.card{background:color-mix(in srgb,var(--card) 90%,transparent);backdrop-filter:blur(10px);border:1px solid color-mix(in srgb,var(--ac) 18%,var(--bd));border-radius:22px;position:relative;overflow:hidden}
+.card:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:linear-gradient(90deg,var(--g1,#7b4fa8),var(--g2,#d9486b),var(--g3,#f59e6b))}
+.sec.on{animation:sw .45s cubic-bezier(.2,.8,.2,1)}@keyframes sw{from{opacity:0;transform:translateX(26px)}to{opacity:1;transform:none}}
+.sec.on .card:nth-child(2){animation-delay:.07s}.sec.on .card:nth-child(3){animation-delay:.14s}.sec.on .card:nth-child(4){animation-delay:.21s}.sec.on .card:nth-child(5){animation-delay:.28s}.sec.on .card:nth-child(n+6){animation-delay:.35s}
+.btn{position:relative;overflow:hidden;background:linear-gradient(135deg,var(--g2,#d9486b),var(--g3,#f59e6b));box-shadow:0 6px 14px rgba(217,72,107,.28)}.btn.g{box-shadow:none}
+.btn:after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.45),transparent);transform:skewX(-20deg);animation:sh 4.5s infinite;pointer-events:none}.btn.g:after{display:none}
+@keyframes sh{0%,60%{left:-120%}100%{left:160%}}
+.rp{position:absolute;border-radius:50%;background:rgba(255,255,255,.55);transform:scale(0);animation:rpl .6s ease-out;pointer-events:none}@keyframes rpl{to{transform:scale(2.4);opacity:0}}
+.bar{height:10px}.bar i{background:linear-gradient(90deg,var(--g2,#d9486b),var(--g3,#f59e6b),var(--g2,#d9486b));background-size:200% 100%;animation:shm 2.5s linear infinite}@keyframes shm{to{background-position:-200% 0}}
+.plats a{position:relative;overflow:hidden;animation:pop .5s both}.plats a:before{content:"";position:absolute;right:-18px;top:-18px;width:74px;height:74px;border-radius:50%;background:rgba(255,255,255,.18)}
+.plats a:nth-child(2){animation-delay:.06s}.plats a:nth-child(3){animation-delay:.12s}.plats a:nth-child(4){animation-delay:.18s}.plats a:nth-child(5){animation-delay:.24s}.plats a:nth-child(6){animation-delay:.3s}
+.nav{left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom,0px) + 8px);border-radius:24px;border:1px solid var(--bd);box-shadow:0 8px 28px rgba(60,20,70,.22);backdrop-filter:blur(14px);background:color-mix(in srgb,var(--card) 90%,transparent);padding:6px}
+.nav button{position:relative;transition:color .2s}.nav button span{transition:transform .25s}.nav button.on span{transform:translateY(-4px) scale(1.25)}.nav button.on:after{content:"";position:absolute;bottom:1px;left:50%;width:18px;height:3px;margin-left:-9px;border-radius:3px;background:var(--ac)}
+.cnt b{display:inline-block}.bump{animation:bmp .45s}@keyframes bmp{50%{transform:scale(1.55)}}
+@keyframes sway{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(6deg)}}.pl{transform-origin:50% 100%;animation:sway 3s ease-in-out infinite}.pl:nth-child(odd){animation-delay:-1.2s}
+.pet span{filter:drop-shadow(0 6px 6px rgba(0,0,0,.18))}.ring{box-shadow:0 0 0 6px color-mix(in srgb,var(--ac) 12%,transparent)}
+.bd:not(.off){background:var(--ac2)}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--ac);box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
+.roles button{transition:transform .15s,background .2s}.roles button:active{transform:scale(.93)}
+@media print{.card:before{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media print{body{background:#fff;color:#000}.hero,.nav,.noprint{display:none!important}.card{border:0;box-shadow:none;padding:0}main{margin:0}}
+.pp{display:none;position:fixed;left:10px;right:10px;bottom:calc(env(safe-area-inset-bottom,0px) + 84px);z-index:12;background:var(--card);border:1px solid var(--ac);border-radius:18px;padding:14px;box-shadow:0 8px 28px rgba(0,0,0,.25);max-width:700px;margin:0 auto}.pp.on{display:block;animation:pop .35s}.pp b{display:block;margin-bottom:8px}#ppe{display:none}
+.tap{position:fixed;width:46px;height:46px;margin:-23px 0 0 -23px;border:1.5px solid var(--ac);border-radius:50%;pointer-events:none;z-index:25;animation:tp .55s ease-out forwards}@keyframes tp{from{transform:scale(.3);opacity:.9}to{transform:scale(1.5);opacity:0}}
+.mus{position:relative;z-index:1;margin-top:12px}.mus button{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.28);border-radius:99px;padding:7px 14px;font:inherit;font-size:.82rem;cursor:pointer;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}#mfr{margin-top:8px}#mfr iframe{display:block;width:100%;height:80px;border:0;border-radius:12px}#mfr.off{display:none}
+</style>
+</head>
+<body>
+<div class="hero noprint"><span class="fe" style="left:72%;top:18%">💼</span><span class="fe" style="left:86%;top:52%">✨</span><span class="fe" style="left:58%;top:64%">🌸</span><span class="fe" style="left:8%;top:74%">🚀</span><div class="d" id="fecha"></div><h1 id="hola">¡Vamos por ese trabajo!</h1><p id="frase"></p><div class="mus"><button id="mbt" type="button">♪ Canción del día</button><div id="mfr"></div></div></div>
+<main>
+
+<section class="sec on" id="s-buscar">
+<div class="card">
+<h2>¿Qué puesto buscás hoy? <span class="chip">📍 Capital Federal</span></h2>
+<div class="roles" id="roles"></div>
+<label>O escribí otro puesto</label><input id="rol">
+<div class="plats" id="plats"></div>
+<div class="hint">Cada botón abre esa plataforma con la búsqueda lista, en otra pestaña. Ahí ya tenés tu sesión iniciada.</div>
+</div>
+<div class="card">
+<h2>Mi meta de hoy</h2>
+<div class="cnt"><b id="n">0</b><span>postulaciones enviadas de <span id="meta">5</span></span></div>
+<div class="bar"><i id="bar"></i></div>
+<button class="btn" id="mas">+ Me postulé</button><button class="btn g" id="menos">−1</button>
+</div>
+<div class="card">
+<h2>⏱ Sesión de foco</h2>
+<div class="ring" id="ring"><div id="tm">25:00</div></div>
+<div style="text-align:center"><button class="btn" id="tgo">Empezar 25 min</button><button class="btn g" id="trs">Reiniciar</button></div>
+<div class="hint" style="text-align:center">25 minutos para buscar, adaptar tu CV y postularte. Sin redes ni distracciones 💪</div>
+<div id="todo"></div>
+</div>
+<div class="card">
+<h2>🌸 Mi jardín de postulaciones</h2>
+<div class="gar" id="gar"></div>
+<div class="hint" id="gtx"></div>
+</div>
+<div class="card">
+<h2>🎮 Mi aventura</h2>
+<div class="pet"><span id="pet">🥚</span><div class="bub" id="pbb">Tocáme, soy tu mascota.</div></div>
+<div class="lvl"><b id="lvn">Principiante 🌱</b><span id="xpt">0 XP</span></div>
+<div class="bar"><i id="xpb"></i></div>
+<div class="mis"><div id="mtx"></div><button class="btn" id="mgo">🎲 Misión sorpresa</button><button class="btn g" id="mok" style="display:none">✔ ¡Hecha! +5 XP</button></div>
+<h2 style="margin-top:16px;font-size:.95rem">Mis logros</h2>
+<div class="bdg" id="bdg"></div>
+<div class="hint">Ganás XP con cada postulación (+10), sesión de foco (+15) y misión (+5).</div>
+</div>
+<div class="card" style="text-align:center">
+<h2>¿Ya lo conseguiste?</h2>
+<button class="btn" id="job" style="font-size:1.05rem">🎉 ¡Conseguí trabajo!</button>
+<div class="hint" id="jtxt"></div>
+</div>
+</section>
+
+<section class="sec" id="s-seg">
+<div class="card"><h2>📋 Seguimiento de postulaciones</h2>
+<div class="hint" style="margin:0 0 8px">Tocá la plataforma por cada postulación que mandes. Se anota sola, con fecha y puesto.</div><div class="roles" id="qk"></div>
+<details><summary>Agregar con empresa y puesto (opcional)</summary>
+<label>Empresa</label><input id="te"><label>Puesto</label><input id="tp">
+<label>Plataforma</label><select id="tpl"><option>LinkedIn</option><option>Indeed</option><option>Computrabajo</option><option>Zonajobs</option><option>Bumeran</option><option>Instagram</option><option>Otra</option></select>
+<button class="btn" id="tadd">+ Agregar</button></details>
+<div class="hint">Tocá el estado para cambiarlo y el nombre de la empresa para completarlo.</div>
+<div id="tl"></div></div>
+<div class="card"><h2>📊 Postulaciones por día</h2><div class="wk" id="wk"></div><div class="hint" id="wks"></div><div id="pst" style="margin-top:12px"></div></div>
+<div class="card"><h2>⚙️ Ajustes</h2>
+<label>Tema de colores</label><div class="roles" id="ths"></div>
+<label class="ck"><input type="checkbox" id="snd"><span>Sonidos de festejo</span></label>
+<label>Mis canciones (links de Spotify, uno por línea)</label><textarea id="mus2" placeholder="Pegá links de canciones. Si lo dejás vacío, usa la lista por defecto."></textarea>
+<label>Detección automática (Gmail)</label>
+<input id="au" placeholder="Link del script (termina en /exec)"><input id="ak" type="password" placeholder="Clave" style="margin-top:8px">
+<button class="btn" id="asv">Guardar y sincronizar</button>
+<div class="hint" id="ast">Sin configurar: la app te pregunta si te postulaste al volver de una plataforma.</div>
+<label>Copia de seguridad</label>
+<button class="btn" id="bdl">💾 Descargar copia</button><button class="btn g" id="bfi">📂 Restaurar desde archivo</button><input type="file" id="bfl" accept=".json,application/json" style="display:none">
+<div class="hint" id="bst">Tus datos se guardan en este celular. Descargá una copia de vez en cuando por si cambiás de teléfono o borrás los datos del navegador.</div>
+<details><summary>Copiar y pegar en vez de archivo</summary>
+<button class="btn" id="bex">Copiar mis datos</button><button class="btn g" id="bim">Restaurar</button>
+<textarea id="bak" placeholder="Acá aparece tu copia. Para restaurar, pegá una copia y tocá Restaurar." style="margin-top:10px"></textarea></details></div>
+</section>
+
+<section class="sec" id="s-prac">
+<div class="card"><h2>🎤 Práctica de entrevistas</h2>
+<div class="mis"><div id="pq" style="font-weight:700;font-size:1.05rem">Tocá el botón para recibir una pregunta.</div><div id="pt" class="hint"></div></div>
+<div class="ring" id="pring" style="width:110px;height:110px;margin-top:14px"><div id="ptm" style="width:88px;height:88px;font-size:1.4rem">1:00</div></div>
+<div style="text-align:center"><button class="btn" id="pgo">🎲 Nueva pregunta</button><button class="btn g" id="pt1">▶ Responder 60 s</button><button class="btn g" id="pok" style="display:none">✔ La practiqué +5 XP</button></div>
+<div class="hint" style="text-align:center">Respondé en voz alta, como si estuvieras en la entrevista.</div>
+</div></section>
+
+<section class="sec" id="s-cv">
+<div class="card">
+<h2>Mi CV</h2>
+<div class="sub" id="tabs"></div>
+<div id="cv"></div>
+<button class="btn noprint" id="cp">Copiar CV</button><button class="btn g noprint" id="pr">Imprimir / PDF</button>
+</div>
+<div class="card noprint">
+<h2>Adaptarlo a un aviso</h2>
+<textarea id="ad" placeholder="Pegá acá el texto del aviso…"></textarea>
+<button class="btn" id="an">Buscar palabras clave</button>
+<div class="chips" id="kw"></div>
+</div>
+<div class="card noprint">
+<h2>Editar mi información</h2>
+<details><summary>Contenido de esta versión</summary>
+<label>Titular</label><input id="tit">
+<label>Perfil</label><textarea id="sum"></textarea>
+<label>Experiencia</label><textarea id="exp" style="min-height:220px"></textarea>
+<div class="hint">Un trabajo por bloque, separados por una línea vacía. Primera línea: Cargo · Lugar | Fechas. Después, un logro por línea.</div>
+<label>Formación (Título · Lugar | Fechas)</label><textarea id="edu"></textarea>
+<label>Habilidades (separadas por coma)</label><textarea id="ski"></textarea>
+<label>Idiomas</label><input id="lan"></details>
+<details><summary>Datos de contacto</summary>
+<label>Nombre</label><input id="name"><label>Email</label><input id="email"><label>Teléfono</label><input id="phone"><label>Zona</label><input id="loc"><label>Portfolio (solo audiovisual y community manager)</label><input id="port"></details>
+</div>
+</section>
+
+<section class="sec" id="s-carta">
+<div class="card">
+<h2>Mi carta o mensaje</h2>
+<label>Pegá el aviso (opcional, para personalizar)</label><textarea id="adc" style="min-height:80px"></textarea>
+<label>Formato</label><select id="ctipo"><option value="msg">Mensaje corto (LinkedIn, WhatsApp, Instagram)</option><option value="mail">Email con asunto</option><option value="carta">Carta de presentación</option></select>
+<label>Empresa</label><input id="emp" placeholder="Nombre de la empresa">
+<label>Puesto</label><input id="pue" placeholder="Puesto al que te postulás">
+<button class="btn" id="gen">Generar texto</button><button class="btn" id="gen2">✨ Armar desde el aviso</button><button class="btn g" id="cpc">Copiar</button>
+<textarea id="cart" style="min-height:240px;margin-top:12px"></textarea>
+</div>
+</section>
+<div id="msg" class="hint"></div>
+</main>
+
+<canvas id="cf" style="position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:20"></canvas>
+<div class="pp noprint" id="pp"><b id="ppt"></b><input id="ppe" placeholder="Empresa (opcional)"><button class="btn" id="ppy">Sí, sumar</button><button class="btn g" id="ppn">No</button></div>
+<div class="toast" id="toast"></div>
+<div class="ov" id="ov"><div class="ovc"><div style="font-size:3.5rem" class="bnc">🏆</div><h2>¡LO LOGRASTE!</h2><p id="ovp"></p><label>¿Dónde fue? (opcional)</label><input id="jemp"><button class="btn" id="fest">¡A festejar!</button><button class="btn g" id="cls">Cerrar</button></div></div>
+<div class="nav noprint" id="nav"><button data-t="buscar" class="on"><span>🔎</span>Buscar</button><button data-t="seg"><span>📋</span>Seguimiento</button><button data-t="prac"><span>🎤</span>Práctica</button><button data-t="cv"><span>📄</span>Mi CV</button><button data-t="carta"><span>✉️</span>Carta</button></div>
+
+<script>
+var P={av:"Audiovisual",cm:"Community manager",ad:"Administración y atención"};
+var EXP_AV="Editora de contenido para redes sociales (freelance) · Cosito Café | 2024 – actualidad\nEdición de reels y videos para Meta, TikTok y radio.\nAdaptación de piezas a distintos formatos y plataformas digitales.\nCriterios narrativos, estéticos y técnicos según el objetivo de cada contenido.\nOrganización de archivos de producción.\n\nCreadora de contenido y gestión de redes · Hogarview | 2026 – actualidad\nCreación y edición de reels y carruseles.\nProducción de fotos, videos, recorridos virtuales y 360° de propiedades.\nAdministración de cuentas de Instagram y TikTok.\nGestión de clientes y comercialización del servicio.";
+var EXP_CM="Creadora de contenido y gestión de redes · Hogarview | 2026 – actualidad\nAdministración de cuentas de Instagram y TikTok.\nCreación y edición de reels y carruseles.\nGestión de clientes y comercialización del servicio, con enfoque en ventas.\nProducción de fotos, videos, recorridos virtuales y 360° de propiedades.\n\nEditora de contenido para redes sociales (freelance) · Cosito Café | 2024 – actualidad\nEdición de reels y videos para Meta, TikTok y radio.\nAdaptación de piezas a distintos formatos y plataformas digitales.\nOrganización de archivos de producción.";
+var EXP_AD="Atención al cliente de primera línea y soporte técnico · Indicom para ADT | ene 2025 – sep 2026\nAtención telefónica de primera línea y resolución de consultas.\nGestión de facturación y soporte técnico de sistemas de alarma.\nManejo de CRM-NAC para registro, verificación de señales y seguimiento de casos.\nCoordinación de visitas técnicas y gestión de incidencias.\n\nRecepcionista administrativa · Clínica de Implante Capilar Buenos Aires | jul 2025 – dic 2025\nAtención presencial y telefónica a pacientes.\nGestión de turnos y coordinación de agendas médicas.\nCarga de datos, administración y organización de documentación.\nResolución de consultas y acompañamiento al paciente.\n\nAtención al cliente y ventas · Tinta es luz (negocio de arte) | oct 2024 – oct 2025\nVentas, atención al cliente y facturación.\nControl de stock y organización de productos.\nEmpaquetado y enmarcado de cuadros y productos de diseño.";
+var D={name:"Pilar Soto",email:"pilarsotoeter4620@gmail.com",phone:"11 3834-1769",loc:"CABA, Argentina",port:"https://pilarsotoeter4620-coder.github.io/portfolio-pilar-soto/",cur:"ad",
+ p:{
+  av:{tit:"Producción Audiovisual | Community manager & Redes",sum:"Estudiante de Producción Audiovisual con formación integral en producción de radio, televisión, cine y publicidad, gestión de contenido para plataformas digitales, social media y community management. Combino esta base con experiencia freelance en edición de video, aplicando criterios narrativos, estéticos y técnicos para optimizar la comunicación digital. Organizada, con mirada creativa y capacidad de gestión de proyectos.",exp:EXP_AV,
+   edu:"Licenciatura en Diseño Audiovisual · Universidad Nacional de las Artes (UNA) | 2020 – en curso\nTecnicatura en Producción y Dirección Audiovisual · Eter, Escuela de Comunicación | 2024 – en curso\nCurso de Community Manager · Formación profesional | ene 2026 – jun 2026",
+   ski:"Premiere Pro, After Effects, Audition, Photoshop, Lightroom, DaVinci Resolve, CapCut, Meta Ads, Marketing Digital, Copywriting, Storytelling Audiovisual, Paquete Office, Identidad Visual"},
+  cm:{tit:"Community manager & Redes | Producción Audiovisual",sum:"Community manager con formación profesional y práctica real en administración de redes, creación de contenido y comercialización de servicios. Combino la gestión de Instagram y TikTok con edición de video y producción audiovisual, aplicando criterios narrativos, estéticos y técnicos. Organizada, con mirada creativa y orientación a resultados.",exp:EXP_CM,
+   edu:"Curso de Community Manager · Formación profesional | ene 2026 – jun 2026\nTecnicatura en Producción y Dirección Audiovisual · Eter, Escuela de Comunicación | 2024 – en curso\nLicenciatura en Diseño Audiovisual · Universidad Nacional de las Artes (UNA) | 2020 – en curso",
+   ski:"Meta Ads, Marketing Digital, Copywriting, Instagram, TikTok, CapCut, Photoshop, Lightroom, Premiere Pro, After Effects, Identidad Visual, Storytelling Audiovisual"},
+  ad:{tit:"Recepcionista · Administración · Atención al cliente",sum:"Perfil profesional con experiencia en recepción administrativa, gestión documental, coordinación de agendas e intermediación con pacientes y clientes, tanto presencial como telefónica. Dominio en carga de datos en sistemas internos, facturación y manejo de plataformas CRM para el seguimiento de casos e incidencias. Manejo del paquete Microsoft Office. Orientada a la organización eficiente de oficinas, la resolución rápida de consultas y el soporte operativo en equipos de trabajo.",exp:EXP_AD,
+   edu:"Licenciatura en Diseño Audiovisual (4° año) · Universidad Nacional de las Artes (UNA) | 2020 – actualidad\nTecnicatura en Producción y Dirección Audiovisual (3° año) · Eter, Escuela de Comunicación | 2024 – actualidad",
+   ski:"Atención al público y pacientes, Gestión de turnos y agendas, Documentación, CRM, Microsoft Office, Excel, Sistemas de gestión, Correo electrónico, Facturación, Comunicación efectiva, Empatía, Organización, Proactividad, Resolución de problemas, Trabajo en equipo, ChatGPT, Gemini, Claude, Prompt Engineering"}
+ }};
+for(var k in D.p)D.p[k].lan="Inglés: intermedio · Italiano: primer nivel (CLE)";
+var S;try{S=JSON.parse(localStorage.getItem("cvpili2")||"null")}catch(e){S=null}
+if(!S||!S.p)S=JSON.parse(JSON.stringify(D));
+function save(){try{localStorage.setItem("cvpili2",JSON.stringify(S))}catch(e){}}
+var $=function(i){return document.getElementById(i)};
+var KW=["premiere","after effects","davinci","audition","photoshop","lightroom","capcut","meta ads","instagram","tiktok","reels","edición","guion","rodaje","fotografía","redes sociales","contenido","community","atención al cliente","atención al público","recepción","administración","facturación","agenda","turnos","crm","excel","word","office","inglés","italiano","organización","comunicación","trabajo en equipo","proactiv","creatividad","storytelling","calendario","métricas","whatsapp","documentación","ventas","soporte","chatgpt"];
+var hits=[];
+/* frases y fecha */
+var F=["Cada postulación te acerca un paso.","Tu experiencia vale más de lo que creés.","Hoy puede ser el día de la buena noticia.","Constancia > perfección. ¡Vos podés!","Un mensaje bien escrito abre puertas.","Mostrate tal cual sos: eso es tu superpoder.","Un “no” hoy es práctica para el “sí” de mañana."];
+var now=new Date();
+$("fecha").textContent=now.toLocaleDateString("es-AR",{weekday:"long",day:"numeric",month:"long"});
+var hh=now.getHours();$("hola").textContent=(hh<12?"¡Buen día":hh<20?"¡Buenas tardes":"¡Buenas noches")+", "+S.name.split(" ")[0]+"! 🌸";
+$("frase").textContent=F[now.getDate()%F.length];
+/* navegación */
+document.querySelectorAll("#nav button").forEach(function(b){b.onclick=function(){document.querySelectorAll("#nav button").forEach(function(x){x.classList.toggle("on",x===b)});document.querySelectorAll(".sec").forEach(function(s){s.classList.toggle("on",s.id==="s-"+b.dataset.t)});window.scrollTo(0,0)}});
+/* búsqueda */
+var R=[["Recepcionista","ad"],["Administrativa","ad"],["Atención al cliente","ad"],["Community manager","cm"],["Creadora de contenido","cm"],["Editora de video","av"],["Producción audiovisual","av"]];
+function slug(t){return t.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").trim().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"")}
+function plats(){var q=$("rol").value.trim()||"empleo",e=encodeURIComponent(q),s=slug(q)||"empleo";
+ var L=[["LinkedIn","📍 Capital Federal","https://www.linkedin.com/jobs/search/?keywords="+e+"&location=Capital%20Federal%2C%20Buenos%20Aires%2C%20Argentina","#0a66c2"],
+ ["Indeed","Capital Federal","https://ar.indeed.com/jobs?q="+e+"&l=Capital+Federal&radius=0","#2557a7"],
+ ["Computrabajo","Capital Federal","https://ar.computrabajo.com/trabajo-de-"+s+"-en-capital-federal","#e8702a"],
+ ["Zonajobs","📍 Capital Federal","https://www.zonajobs.com.ar/en-buenos-aires/capital-federal/empleos-busqueda-"+s+".html","#d6336c"],
+ ["Bumeran","📍 Capital Federal","https://www.bumeran.com.ar/en-buenos-aires/capital-federal/empleos-busqueda-"+s+".html","#e0561b"],
+ ["Instagram","#busquedalaboralcaba","https://www.instagram.com/explore/tags/busquedalaboralcaba/","#c13584"]];
+ $("plats").innerHTML=L.map(function(x){return "<a target='_blank' rel='noopener noreferrer' href='"+x[2]+"' style='background:"+x[3]+"'>"+x[0]+"<small>"+x[1]+" →</small></a>"}).join("")}
+function roles(){$("roles").innerHTML="";R.forEach(function(r){var b=document.createElement("button");b.textContent=r[0];if($("rol").value===r[0])b.className="on";b.onclick=function(){$("rol").value=r[0];$("pue").value=r[0];S.cur=r[1];save();fill();render();roles();plats()};$("roles").appendChild(b)})}
+$("rol").oninput=function(){roles();plats()};
+/* contador */
+var C={d:"",n:0};try{C=JSON.parse(localStorage.getItem("cvpili_apps")||"null")||C}catch(e){}
+var hoy=now.toISOString().slice(0,10);if(C.d!==hoy)C={d:hoy,n:0};
+function cnt(){$("n").textContent=C.n;$("bar").style.width=Math.min(100,C.n/5*100)+"%";try{localStorage.setItem("cvpili_apps",JSON.stringify(C))}catch(e){}}
+$("mas").onclick=function(){C.n++;cnt();if(C.n===5)$("msg").textContent="🎉 ¡Meta del día cumplida!"};$("menos").onclick=function(){C.n=Math.max(0,C.n-1);cnt()};
+/* CV */
+var FM=["tit","sum","exp","edu","ski","lan"];
+function tabs(){$("tabs").innerHTML="";Object.keys(P).forEach(function(k){var b=document.createElement("button");b.textContent=P[k];if(S.cur===k)b.className="on";b.onclick=function(){S.cur=k;save();fill();render()};$("tabs").appendChild(b)})}
+function fill(){var p=S.p[S.cur];FM.forEach(function(f){$(f).value=p[f]});["name","email","phone","loc","port"].forEach(function(f){$(f).value=S[f]});tabs()}
+function esc(t){return String(t).replace(/[&<>]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;"}[c]})}
+function hl(t){var h=esc(t);hits.forEach(function(k){if(k.length<3)return;h=h.replace(new RegExp("("+k.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")+")","ig"),"<mark>$1</mark>")});return h}
+function row(l){var a=l.split("|");return "<div class='r'><span>"+hl(a[0].trim())+"</span><span>"+esc((a[1]||"").trim())+"</span></div>"}
+function render(){var p=S.p[S.cur],sk=p.ski.split(",").map(function(s){return s.trim()}).filter(Boolean);
+ var sc=function(s){return hits.some(function(k){return k.length>2&&s.toLowerCase().indexOf(k)>-1})?1:0};sk.sort(function(a,c){return sc(c)-sc(a)});
+ var ct=[S.loc,S.email,S.phone,S.cur!=="ad"?S.port:""].filter(Boolean).join(" · ");
+ var ex=p.exp.split(/\n\s*\n/).filter(function(b){return b.trim()}).map(function(b){var L=b.trim().split("\n");return row(L[0])+"<ul>"+L.slice(1).filter(Boolean).map(function(x){return "<li>"+hl(x)+"</li>"}).join("")+"</ul>"}).join("");
+ $("cv").innerHTML="<h3>"+esc(S.name).toUpperCase()+"</h3><div class='tt'>"+esc(p.tit)+"</div><div class='ct'>"+esc(ct)+"</div><h4>Perfil profesional</h4><div>"+hl(p.sum)+"</div><h4>Experiencia profesional</h4>"+ex+"<h4>Formación</h4>"+p.edu.split("\n").filter(Boolean).map(row).join("")+"<h4>Habilidades</h4><div>"+hl(sk.join(" · "))+"</div><h4>Idiomas</h4><div>"+esc(p.lan)+"</div>"}
+FM.forEach(function(f){$(f).oninput=function(){S.p[S.cur][f]=this.value;save();render()}});
+["name","email","phone","loc","port"].forEach(function(f){$(f).oninput=function(){S[f]=this.value;save();render()}});
+$("an").onclick=function(){var t=$("ad").value.toLowerCase();hits=KW.filter(function(k){return t.indexOf(k)>-1});$("kw").innerHTML=hits.length?hits.map(function(k){return "<span class='chip'>"+esc(k)+"</span>"}).join(""):"<span class='chip'>No encontré palabras clave conocidas</span>";render()};
+function copiar(t){var m=$("msg");try{navigator.clipboard.writeText(t).then(function(){m.textContent="¡Copiado!"},function(){m.textContent="No pude copiar; seleccioná el texto a mano."})}catch(e){m.textContent="No pude copiar; seleccioná el texto a mano."}}
+$("cp").onclick=function(){copiar($("cv").innerText)};$("cpc").onclick=function(){copiar($("cart").value)};
+$("pr").onclick=function(){try{window.print()}catch(e){}};
+/* carta */
+var PITCH={av:"Soy estudiante de Producción Audiovisual y edito contenido para redes y radio",cm:"Soy community manager y gestiono Instagram y TikTok creando contenido propio",ad:"Tengo experiencia en recepción, atención al cliente y administración, con manejo de CRM y Office"};
+$("gen").onclick=function(){var p=S.p[S.cur],emp=$("emp").value.trim()||"[empresa]",pu=$("pue").value.trim()||"[puesto]",t=$("ctipo").value,pt=PITCH[S.cur],c=[S.email,S.phone].filter(Boolean).join(" · "),pf=S.cur!=="ad"&&S.port?" Mi portfolio: "+S.port:"";
+ var b=(p.exp.split(/\n\s*\n/)[0]||"").split("\n").slice(1,3).map(function(x){return "• "+x}).join("\n"),o;
+ if(t==="msg")o="Hola, ¿cómo están? Me llamo "+S.name+" y me interesa la búsqueda de "+pu+" en "+emp+". "+pt+"."+pf+" Les dejo mi CV y quedo a disposición. ¡Muchas gracias!";
+ else o=(t==="mail"?"Asunto: Postulación – "+pu+" – "+S.name+"\n\n":"")+"Estimados/as de "+emp+":\n\nMe dirijo a ustedes para postularme al puesto de "+pu+". "+pt+".\n\nEn mi experiencia reciente:\n"+b+"\n\nAdjunto mi CV y quedo a disposición para coordinar una entrevista."+pf+"\n\nSaludos cordiales,\n"+S.name+"\n"+c;
+ $("cart").value=o};
+$("rol").value="Recepcionista";$("pue").value="Recepcionista";S.cur="ad";
+/* v4: jardín, racha, foco, festejo */
+var L=function(d){return new Date(d-d.getTimezoneOffset()*6e4).toISOString().slice(0,10)},td=L(now),yd=L(new Date(now-864e5));
+var K={d:td,n:C.n||0,t:C.n||0,s:C.n?1:0,l:C.n?td:"",j:"",k:[0,0,0]};
+try{var kk=JSON.parse(localStorage.getItem("cvpili_k")||"null");if(kk){K=kk;if(K.d!==td){K.d=td;K.n=0;K.k=[0,0,0]}}}catch(e){}
+function sv(){try{localStorage.setItem("cvpili_k",JSON.stringify(K))}catch(e){}}
+function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(function(){e.classList.remove("on")},3500)}
+var cfv=$("cf"),cx=cfv.getContext("2d"),P2=[],raf=0;
+function rs(){cfv.width=innerWidth;cfv.height=innerHeight}rs();addEventListener("resize",rs);
+function boom(big,x,y){var n=big?160:40,cols=["#d9486b","#f59e6b","#7b4fa8","#ffd166","#06d6a0","#4cc9f0"];for(var i=0;i<n;i++)P2.push({x:x||innerWidth/2,y:y||innerHeight*.4,vx:(Math.random()-.5)*(big?16:9),vy:-Math.random()*(big?16:10)-3,g:.35,r:Math.random()*6+3,c:cols[i%6],a:1,rot:Math.random()*6});if(!raf)loop()}
+function loop(){cx.clearRect(0,0,cfv.width,cfv.height);P2=P2.filter(function(p){return p.a>0&&p.y<cfv.height+20});P2.forEach(function(p){p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.vx*=.99;p.rot+=.2;p.a-=.006;cx.globalAlpha=Math.max(p.a,0);cx.fillStyle=p.c;cx.save();cx.translate(p.x,p.y);cx.rotate(p.rot);cx.fillRect(-p.r,-p.r/2,p.r*2,p.r);cx.restore()});raf=P2.length?requestAnimationFrame(loop):0;if(!raf)cx.clearRect(0,0,cfv.width,cfv.height)}
+function jardin(){var E=["🌱","🌿","🌷","🌻","🌼","🌸"],h="";for(var i=0;i<Math.min(K.t,36);i++)h+="<span class='pl"+(i===K.t-1&&K.pop?" pop":"")+"'>"+E[i%6]+"</span>";$("gar").innerHTML=h||"<span class='hint'>Tu jardín está vacío. ¡Cada postulación planta una flor!</span>";var st=(K.l===td||K.l===yd)?K.s:0;$("gtx").textContent=K.t+" postulaciones en total · racha de "+st+" día"+(st===1?"":"s")+" 🔥"}
+cnt=function(){$("n").textContent=K.n;$("bar").style.width=Math.min(100,K.n/5*100)+"%";jardin();sv()};
+$("mas").onclick=function(){K.n++;K.t++;if(K.l!==td){K.s=(K.l===yd?K.s:0)+1;K.l=td}K.pop=1;cnt();K.pop=0;if(K.n===5){boom(1);toast("🎉 ¡Meta del día cumplida!")}else boom(0)};
+$("menos").onclick=function(){if(K.n>0){K.n--;K.t=Math.max(0,K.t-1)}cnt()};
+function jtxt(){$("jtxt").textContent=K.j?"🏆 Conseguiste: "+K.j+". ¡Qué orgullo!":"";if(K.j)$("hola").textContent="¡Felicitaciones, "+S.name.split(" ")[0]+"! 🏆"}
+$("job").onclick=function(){$("ov").classList.add("on");$("ovp").textContent="Te postulaste "+K.t+" veces y no te rendiste. ¡Esto es tuyo!"};
+$("cls").onclick=function(){$("ov").classList.remove("on")};
+$("fest").onclick=function(){K.j=$("jemp").value.trim()||"un trabajo nuevo";sv();jtxt();var c=0,iv=setInterval(function(){boom(1,Math.random()*innerWidth,innerHeight*.3);if(++c>7)clearInterval(iv)},450)};
+var D0=1500,T=D0,run=0,iv2;
+function tshow(){var t=("0"+Math.floor(T/60)).slice(-2)+":"+("0"+T%60).slice(-2);$("tm").textContent=t;$("ring").style.setProperty("--p",((D0-T)/D0*100)+"%");document.title=run?"⏱ "+t+" · Mi espacio":"Mi espacio de trabajo"}
+$("tgo").onclick=function(){if(run){clearInterval(iv2);run=0;this.textContent="Seguir"}else{run=1;this.textContent="Pausar";iv2=setInterval(function(){T--;if(T<=0){clearInterval(iv2);run=0;T=D0;$("tgo").textContent="Empezar 25 min";boom(1);toast("⏱ ¡Sesión completa! Mandá otro CV 💪")}tshow()},1000)}tshow()};
+$("trs").onclick=function(){clearInterval(iv2);run=0;T=D0;$("tgo").textContent="Empezar 25 min";tshow()};
+var TD=["Buscar 3 avisos nuevos","Adaptar mi CV a un aviso","Mandar un mensaje de postulación"];
+function todo(){$("todo").innerHTML=TD.map(function(t,i){return "<label class='ck'><input type='checkbox' data-i='"+i+"'"+(K.k[i]?" checked":"")+"><span"+(K.k[i]?" class='dn'":"")+">"+t+"</span></label>"}).join("");document.querySelectorAll("#todo input").forEach(function(c){c.onchange=function(){K.k[c.dataset.i]=c.checked?1:0;sv();todo();if(K.k.every(Boolean)){boom(1);toast("✨ ¡Rutina de hoy completa!")}}})}
+/* v5: aventura */
+K.m=K.m||0;K.f=K.f||0;K.b=K.b||[];K.mi=K.mi||"";
+var MS=["Actualizá tu foto de perfil de LinkedIn 📸","Escribile a un reclutador o reclutadora de LinkedIn","Repasá tu CV: ¿hay algún logro nuevo para sumar?","Guardá 3 avisos que te interesen","Mirá el perfil de una empresa donde te gustaría trabajar","Practicá en voz alta tu presentación de 30 segundos","Pedile a alguien que lea tu CV y te dé su opinión","Activá una alerta de empleo en una plataforma","Tomá agua y estirá 1 minuto 💧","Seguí en Instagram a 3 empresas que te gusten","Sumá una habilidad nueva a tu LinkedIn","Escribí un mensaje de postulación para un aviso de hoy"];
+var LV=[[0,"Principiante 🌱"],[30,"Exploradora 🔍"],[80,"Postuladora 💌"],[150,"Imparable 🚀"],[250,"Crack 👑"],[400,"Leyenda ✨"]];
+var BG=[["🥇","Primera postulación",function(){return K.t>=1}],["🔥","Racha de 3 días",function(){return K.s>=3&&(K.l===td||K.l===yd)}],["🌳","10 postulaciones",function(){return K.t>=10}],["💌","25 postulaciones",function(){return K.t>=25}],["⏱","Sesión de foco",function(){return K.f>=1}],["🎯","Meta del día",function(){return !!K.g}],["🎲","3 misiones",function(){return K.m>=3}],["🏆","¡Conseguí trabajo!",function(){return !!K.j}]];
+function xp(){var x=K.t*10+K.m*5+K.f*15,i=0;LV.forEach(function(l,j){if(x>=l[0])i=j});var nx=LV[i+1],lo=LV[i][0];
+ if(K.lv!==undefined&&i>K.lv){boom(1);toast("⬆️ ¡Subiste de nivel: "+LV[i][1]+"!")}K.lv=i;
+ $("lvn").textContent=LV[i][1];$("xpt").textContent=x+" XP"+(nx?" · próximo nivel: "+nx[0]:"");$("xpb").style.width=(nx?(x-lo)/(nx[0]-lo)*100:100)+"%";
+ var h="",nw=[];BG.forEach(function(b){var on=b[2]();var nu=on&&K.b.indexOf(b[0])<0;if(nu){K.b.push(b[0]);nw.push(b)}h+="<div class='bd"+(on?"":" off")+(nu?" new":"")+"'><i>"+b[0]+"</i>"+b[1]+"</div>"});
+ $("bdg").innerHTML=h;sv();if(nw.length){toast("🏅 ¡Logro desbloqueado: "+nw[0][1]+"!")}}
+var cnt0=cnt;cnt=function(){cnt0();xp()};
+var toast0=toast;toast=function(t){if(t.indexOf("Sesión completa")>-1){K.f++;sv()}if(t.indexOf("Meta del día cumplida")>-1&&!K.g){K.g=1;sv()}toast0(t);if(/Sesión completa|Meta del día cumplida/.test(t))xp()};
+function mis(){$("mtx").textContent=K.mi||"Sacá una misión sorpresa y ganá XP extra.";$("mok").style.display=K.mi?"inline-block":"none"}
+$("mgo").onclick=function(){var m;do{m=MS[Math.floor(Math.random()*MS.length)]}while(m===K.mi);K.mi=m;sv();mis();boom(0)};
+$("mok").onclick=function(){K.m++;K.mi="";sv();mis();boom(1);toast("✅ ¡Misión cumplida! +5 XP");xp()};
+mis();
+/* v6 */
+var TR=[];try{TR=JSON.parse(localStorage.getItem("cvpili_tr")||"[]")}catch(e){}
+function svt(){try{localStorage.setItem("cvpili_tr",JSON.stringify(TR))}catch(e){}}
+var ST=["Enviada","Entrevista","Oferta","Rechazo","Sin respuesta"],SC=["#7b4fa8","#0a9f6e","#d9a400","#8a8a8a","#c97b3a"];
+function dias(d){return Math.floor((new Date(td)-new Date(d))/864e5)}
+function tlist(){var h="";TR.slice().reverse().forEach(function(r,j){var i=TR.length-1-j,dd=dias(r.d),rem=r.s===0&&dd>=7;h+="<div class='tr'><div><b class='en' data-i='"+i+"' style='cursor:pointer'>"+esc(r.e)+(r.e==="—"?" ✏️":"")+"</b><br><small>"+esc(r.p)+" · "+esc(r.pl)+" · hace "+dd+" d</small>"+(rem?"<br><small style='color:var(--ac)'>⏰ Pasaron "+dd+" días: ¿le escribís de nuevo?</small>":"")+"</div><div style='white-space:nowrap'><button class='st' data-i='"+i+"' style='background:"+SC[r.s]+"'>"+ST[r.s]+"</button><button class='x' data-x='"+i+"'>✕</button></div></div>"});
+ $("tl").innerHTML=h||"<div class='hint'>Todavía no cargaste postulaciones.</div>";
+ document.querySelectorAll(".st").forEach(function(b){b.onclick=function(){var r=TR[b.dataset.i];r.s=(r.s+1)%ST.length;if(r.s===1){boom(1);toast("🎤 ¡Entrevista! Practicá en la pestaña Práctica")}if(r.s===2){boom(1);toast("🎁 ¡Te hicieron una oferta!")}svt();tlist();stats()}});
+ document.querySelectorAll(".en").forEach(function(b){b.onclick=function(){var r=TR[b.dataset.i],v=prompt("Empresa",r.e==="—"?"":r.e);if(v!==null){r.e=v.trim()||"—";svt();tlist()}}});
+ document.querySelectorAll(".x").forEach(function(b){b.onclick=function(){var r=TR[b.dataset.x];if(r&&r.d===td&&K.n>0){K.n--;K.t=Math.max(0,K.t-1)}TR.splice(b.dataset.x,1);svt();cnt();tlist();stats()}})}
+$("tadd").onclick=function(){var e=$("te").value.trim();if(!e){toast("Escribí el nombre de la empresa");return}TR.push({e:e,p:$("tp").value.trim()||"—",pl:$("tpl").value,s:0,d:td});svt();$("te").value="";$("tp").value="";$("mas").onclick();tlist();stats()};
+function stats(){var days=[],mx=1,tot=0,best=["",0],cd={};TR.forEach(function(r){cd[r.d]=(cd[r.d]||0)+1});for(var i=13;i>=0;i--){var dt=L(new Date(now-i*864e5)),n=Math.max((K.h&&K.h[dt])||0,cd[dt]||0);if(dt===td)n=Math.max(K.n,cd[dt]||0);days.push([dt.slice(8),n]);tot+=n;mx=Math.max(mx,n);if(n>best[1])best=[dt,n]}
+ $("wks").textContent="Últimos 14 días: "+tot+" postulaciones · promedio "+(tot/14).toFixed(1).replace(".",",")+" por día"+(best[1]?" · mejor día: "+best[0].slice(8)+"/"+best[0].slice(5,7)+" ("+best[1]+")":"");
+ $("wk").innerHTML=days.map(function(x){return "<div class='col'><b>"+x[1]+"</b><i style='height:"+(x[1]/mx*80)+"px'></i><small>"+x[0]+"</small></div>"}).join("");
+ var pl={},rs=0,h="";TR.forEach(function(r){pl[r.pl]=(pl[r.pl]||0)+1;if(r.s===1||r.s===2)rs++});
+ Object.keys(pl).forEach(function(k){h+="<div class='pb'><span>"+k+"</span><div class='bar'><i style='width:"+pl[k]/TR.length*100+"%'></i></div><b>"+pl[k]+"</b></div>"});
+ $("pst").innerHTML=TR.length?h+"<div class='hint'>Respuestas positivas (entrevista u oferta): "+rs+" de "+TR.length+" ("+Math.round(rs/TR.length*100)+"%)</div>":"<div class='hint'>Cargá postulaciones para ver en qué plataforma te va mejor.</div>"}
+var cnt1=cnt;cnt=function(){K.h=K.h||{};K.h[td]=K.n;cnt1();stats()};
+var Q=[["Contame sobre vos.","Usá 3 partes: quién sos, qué hiciste y qué buscás."],["¿Por qué querés este puesto?","Conectá tu experiencia con algo concreto del aviso."],["¿Cuál es tu mayor fortaleza?","Elegí una real y dá un ejemplo corto."],["¿Qué estás mejorando de vos?","Mencioná algo real y qué hacés para mejorarlo."],["Contame de una situación difícil con un cliente.","Orden: situación, qué hiciste y resultado."],["¿Cómo te organizás cuando tenés muchas tareas?","Hablá de prioridades, agenda y herramientas que usás."],["¿Por qué dejaste tu último trabajo?","Sé breve, positiva y mirá hacia adelante."],["¿Dónde te ves en 2 años?","Mostrá ganas de crecer sin salirte del puesto."],["¿Qué sabés de nuestra empresa?","Mirá su web e Instagram antes de la entrevista."],["¿Qué disponibilidad horaria tenés?","Tené clara tu agenda de estudio y de trabajo."],["¿Qué pretensión salarial tenés?","Investigá el rango del puesto y dalo como rango, no como número fijo."],["¿Tenés alguna pregunta para nosotros?","Llevá siempre 2: equipo, rutina del puesto o próximos pasos."]];
+var qi=-1,pt=60,piv;
+function ptshow(){$("ptm").textContent=Math.floor(pt/60)+":"+("0"+pt%60).slice(-2);$("pring").style.setProperty("--p",(60-pt)/60*100+"%")}
+$("pgo").onclick=function(){var j;do{j=Math.floor(Math.random()*Q.length)}while(j===qi);qi=j;$("pq").textContent=Q[j][0];$("pt").textContent="💡 "+Q[j][1];$("pok").style.display="inline-block";clearInterval(piv);pt=60;ptshow();boom(0)};
+$("pt1").onclick=function(){clearInterval(piv);pt=60;ptshow();piv=setInterval(function(){pt--;ptshow();if(pt<=0){clearInterval(piv);toast("⏱ ¡Tiempo! ¿Cómo te salió?")}},1000)};
+$("pok").onclick=function(){K.m++;sv();$("pok").style.display="none";boom(1);toast("✅ ¡Práctica lista! +5 XP");xp()};
+var MA=["🥚","🐣","🐥","🦊","🦄","🐉"],MM=["Todavía soy un huevito… ¡ayudame a crecer!","¡Estoy naciendo! Gracias por postularte 💪","¡Cada CV me da energía!","¡Mirá cuánto crecí gracias a vos!","¡Imparable! Me siento mágico ✨","¡Somos una leyenda juntos!"],PH=["¡Vos podés!","Un CV más y vamos por ese sí 💌","Me encanta tu constancia","Tomá agua y seguimos 💧","Hoy es un buen día para postularse"];
+function mascota(){var i=K.lv||0;$("pet").textContent=MA[i];$("pbb").textContent=MM[i]}
+var xp0=xp;xp=function(){xp0();mascota()};
+$("pet").onclick=function(){$("pbb").textContent=PH[Math.floor(Math.random()*PH.length)];boom(0)};
+var TH=[["Lila","#d9486b","#7b4fa8","#d9486b","#f59e6b"],["Océano","#0a8fbf","#0a4f8f","#0a8fbf","#4cc9c0"],["Menta","#0a9f6e","#0a6f6a","#0a9f6e","#9be15d"],["Sol","#e8812a","#c2410c","#e8812a","#ffd166"]];
+function ths(){$("ths").innerHTML="";TH.forEach(function(t,i){var b=document.createElement("button");b.textContent=t[0];if((K.th||0)===i)b.className="on";b.onclick=function(){theme(i)};$("ths").appendChild(b)})}
+function theme(i){var t=TH[i],r=document.documentElement.style;r.setProperty("--ac",t[1]);r.setProperty("--g1",t[2]);r.setProperty("--g2",t[3]);r.setProperty("--g3",t[4]);K.th=i;sv();ths()}
+var AC=null;function snd(b){if(!K.so)return;try{AC=AC||new (window.AudioContext||window.webkitAudioContext)();var f=b?[523,659,784,1047]:[660,880];f.forEach(function(q,i){var o=AC.createOscillator(),g=AC.createGain(),t0=AC.currentTime+i*.1;o.frequency.value=q;o.type="triangle";g.gain.setValueAtTime(.12,t0);g.gain.exponentialRampToValueAtTime(.001,t0+.3);o.connect(g);g.connect(AC.destination);o.start(t0);o.stop(t0+.32)})}catch(e){}}
+var boom0=boom;boom=function(b,x,y){boom0(b,x,y);snd(b)};
+$("snd").checked=!!K.so;$("snd").onchange=function(){K.so=this.checked?1:0;sv();if(K.so)snd(0)};
+var BK=["cvpili2","cvpili_k","cvpili_apps","cvpili_tr","cvpili_mus","cvpili_au"];
+$("bex").onclick=function(){var o={};BK.forEach(function(k){try{o[k]=localStorage.getItem(k)}catch(e){}});var t=JSON.stringify(o);$("bak").value=t;copiar(t);toast("💾 Copia lista. Guardala en tus notas")};
+$("bim").onclick=function(){try{var o=JSON.parse($("bak").value);BK.forEach(function(k){if(o[k])localStorage.setItem(k,o[k])});toast("✅ Restaurado");setTimeout(function(){location.reload()},900)}catch(e){toast("No pude leer esa copia")}};
+$("gen2").onclick=function(){$("gen").onclick();var p=S.p[S.cur],txt=(p.ski+" "+p.exp+" "+p.sum).toLowerCase(),ad=$("adc").value.toLowerCase();
+ var m=KW.filter(function(k){return k.length>2&&ad.indexOf(k)>-1&&txt.indexOf(k)>-1}).slice(0,4);
+ var s=m.length?"Vi que buscan perfiles con "+m.join(", ")+", justo lo que trabajo en mi día a día.":"Me interesa mucho la propuesta.";
+ var t=$("cart").value;if(/Adjunto mi CV|Les dejo mi CV/.test(t))t=t.replace(/(Adjunto mi CV|Les dejo mi CV)/,s+" $1");$("cart").value=t;if(!ad.trim())toast("Pegá primero el aviso para personalizarlo")};
+/* v7 */
+var RM=matchMedia("(prefers-reduced-motion:reduce)").matches;
+function spark(x,y){if(RM)return;var c=["#ffd166","#fff","#ff7a9c","#c9a7ff"];for(var i=0;i<8;i++){var a=Math.random()*6.28,s=Math.random()*3+1;P2.push({x:x,y:y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-1,g:.08,r:Math.random()*2.5+1.5,c:c[i%4],a:.9,rot:0})}if(!raf)loop()}
+document.addEventListener("pointerdown",function(e){var b=e.target.closest&&e.target.closest(".btn");if(b&&!RM){var r=document.createElement("i"),q=b.getBoundingClientRect(),d=Math.max(q.width,q.height);r.className="rp";r.style.cssText="width:"+d+"px;height:"+d+"px;left:"+(e.clientX-q.left-d/2)+"px;top:"+(e.clientY-q.top-d/2)+"px";b.appendChild(r);setTimeout(function(){r.remove()},600)}});
+var cnt2=cnt;cnt=function(){cnt2();var n=$("n");n.classList.remove("bump");void n.offsetWidth;n.classList.add("bump")};
+(function(){var el=$("frase"),t=el.textContent,i=0;if(RM)return;el.textContent="";var iv=setInterval(function(){el.textContent=t.slice(0,++i);if(i>=t.length)clearInterval(iv)},35)})();
+theme(K.th||0);tlist();ptshow();
+var pend=TR.filter(function(r){return r.s===0&&dias(r.d)>=7}).length;if(pend)setTimeout(function(){toast("⏰ Tenés "+pend+" postulaciones para retomar")},1500);
+/* v8: detectar postulaciones al volver de una plataforma */
+var AU=null;try{AU=JSON.parse(localStorage.getItem("cvpili_au")||"null")}catch(e){}
+var PP=null;try{PP=JSON.parse(localStorage.getItem("cvpili_pend")||"null")}catch(e){}
+function spp(){try{if(PP)localStorage.setItem("cvpili_pend",JSON.stringify(PP));else localStorage.removeItem("cvpili_pend")}catch(e){}}
+function ppclose(){PP=null;spp();$("pp").classList.remove("on");$("ppe").value=""}
+function ppshow(){if(!PP||(AU&&AU.u))return;var a=Date.now()-PP.t;if(a>432e5){ppclose();return}if(a<15000)return;$("ppt").textContent="Volviste de "+PP.pl+". ¿Te postulaste?";$("pp").classList.add("on")}
+$("plats").addEventListener("click",function(e){var a=e.target.closest("a");if(!a||(AU&&AU.u))return;PP={pl:a.childNodes[0].textContent,t:Date.now()};spp()});
+document.addEventListener("visibilitychange",function(){if(!document.hidden)ppshow()});
+addEventListener("focus",ppshow);
+$("ppy").onclick=function(){if(!PP)return;TR.push({e:"—",p:$("rol").value.trim()||"—",pl:PP.pl,s:0,d:td});svt();$("mas").onclick();tlist();stats();ppclose()};
+$("ppn").onclick=ppclose;
+ppshow();
+/* v9: sincronización automática desde Gmail */
+var lastSync=0,syncing=0;
+function ast(t){$("ast").textContent=t}
+function sync(manual){if(!AU||!AU.u||syncing)return;syncing=1;if(manual)ast("Sincronizando…");
+ fetch(AU.u+(AU.u.indexOf("?")>-1?"&":"?")+"k="+encodeURIComponent(AU.k)+"&dias=30").then(function(r){return r.json()}).then(function(j){
+  if(!j.ok){ast(j.error==="clave"?"La clave no coincide con la del script.":"El script devolvió un error.");return}
+  var have={},nw=0;TR.forEach(function(r){if(r.g)have[r.g]=1});
+  j.items.forEach(function(it){if(have[it.g])return;have[it.g]=1;TR.push({e:it.e||"—",p:it.p||"—",pl:it.pl,s:0,d:it.d,g:it.g});nw++;K.t++;if(it.d===td){K.n++;if(K.l!==td){K.s=(K.l===yd?K.s:0)+1;K.l=td}}});
+  lastSync=Date.now();
+  if(nw){TR.sort(function(a,b){return a.d<b.d?-1:a.d>b.d?1:0});svt();K.pop=1;cnt();K.pop=0;tlist();stats();boom(0);toast("📬 "+nw+(nw===1?" postulación nueva detectada":" postulaciones nuevas detectadas"))}
+  ast("Última sincronización: "+new Date().toLocaleTimeString("es-AR",{hour:"2-digit",minute:"2-digit"})+" · "+j.items.length+" postulaciones en los últimos 30 días")
+ }).catch(function(){ast("No pude conectar con el script. Revisá el link y que esté publicado para «Cualquier persona».")}).then(function(){syncing=0})}
+$("asv").onclick=function(){var u=$("au").value.trim(),k=$("ak").value.trim();if(!/^https:\/\/script\.google\.com\//.test(u)||!k){toast("Pegá el link del script y la clave");return}AU={u:u,k:k};try{localStorage.setItem("cvpili_au",JSON.stringify(AU))}catch(e){}ppclose();sync(1)};
+document.addEventListener("visibilitychange",function(){if(!document.hidden&&Date.now()-lastSync>12e4)sync(0)});
+if(AU&&AU.u){$("au").value=AU.u;$("ak").value=AU.k;ast("Configurado.");sync(0)}
+/* v10: seguimiento ágil, un toque por postulación */
+function qadd(pl){TR.push({e:"—",p:$("rol").value.trim()||"—",pl:pl,s:0,d:td});svt();$("mas").onclick();tlist();stats();toast("✅ +1 en "+pl)}
+["LinkedIn","Indeed","Computrabajo","Zonajobs","Bumeran","Instagram","Otra"].forEach(function(n){var b=document.createElement("button");b.textContent="+ "+n;b.onclick=function(){qadd(n)};$("qk").appendChild(b)});
+/* v11: toque sutil y canción del día */
+function tap(x,y){if(RM)return;var r=document.createElement("i");r.className="tap";r.style.left=x+"px";r.style.top=y+"px";document.body.appendChild(r);setTimeout(function(){r.remove()},600)}
+var SG=[["2u6Lstxqcg5KtJhCivR87d","Vampi (en vivo)","Babasónicos"],["0SaKhiBPgdRaQKA7Bxu3ek","Putita","Babasónicos"],["3L55aSsDkT5ojgy3WXjh7s","Risa","Babasónicos"],["23FJGRug9hlYUIBnrmkIBX","Cicatrices","Airbag"],["5S7k88yKKQe2sPPvpZnH3R","Perdido","Airbag"],["5RPdXtlqeRK4Qtgkix042H","Fantasmas","Miranda!"],["4ksf1UdqNc9pU8R4ZZrgdY","Tu Misterioso Alguien","Miranda!"],["7LUepo06YjPnIoDVmiwYlJ","El Momento Perfecto","El Zar"],["609E1JCInJncactoMmkDon","BESO","ROSALÍA, Rauw Alejandro"],["1pymWRCuZfCd0zdiBJo0Hj","REAL GANGSTA LOVE","Trueno"],["3sK8wGT43QFpWrvNQsrQya","DtMF","Bad Bunny"]];
+var MY="",cn;try{MY=localStorage.getItem("cvpili_mus")||""}catch(e){}
+function mset(){var ids=(MY.match(/track\/[A-Za-z0-9]{22}/g)||[]).map(function(x){return[x.slice(6),"",""]}),l=ids.length?ids:SG,d=Math.floor((now.getTime()-now.getTimezoneOffset()*6e4)/864e5);cn=l[d%l.length];$("mfr").innerHTML="";$("mbt").textContent="♪ Canción del día"+(cn[1]?": "+cn[1]+" · "+cn[2]:"")}
+$("mbt").onclick=function(){var f=$("mfr");if(!f.firstChild){f.innerHTML="<iframe src='https://open.spotify.com/embed/track/"+cn[0]+"?utm_source=generator' allow='autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture' loading='lazy'></iframe>";f.className=""}else f.classList.toggle("off")};
+$("mus2").value=MY;$("mus2").oninput=function(){MY=this.value;try{localStorage.setItem("cvpili_mus",MY)}catch(e){}mset()};
+mset();
+todo();tshow();jtxt();
+fill();render();roles();plats();cnt();
+
+/* v13: copia en archivo, recordatorio y almacenamiento persistente */
+function bkObj(){var o={};BK.forEach(function(k){try{o[k]=localStorage.getItem(k)}catch(e){}});return o}
+function bkLast(){var t="";try{t=localStorage.getItem("cvpili_bkdate")||""}catch(e){}return t}
+function bkShow(){var t=bkLast();$("bst").textContent=t?"Última copia descargada: "+t+". Tus datos se guardan en este celular.":"Todavía no descargaste ninguna copia. Tus datos se guardan en este celular."}
+$("bdl").onclick=function(){var d=new Date(),f=d.toISOString().slice(0,10),b=new Blob([JSON.stringify(bkObj())],{type:"application/json"}),a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="mi-espacio-copia-"+f+".json";document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},1500);try{localStorage.setItem("cvpili_bkdate",d.toLocaleDateString("es-AR"))}catch(e){}bkShow();toast("💾 Copia descargada")};
+$("bfi").onclick=function(){$("bfl").click()};
+$("bfl").onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var o=JSON.parse(r.result),n=0;BK.forEach(function(k){if(o[k]){localStorage.setItem(k,o[k]);n++}});if(!n)throw 0;toast("✅ Restaurado");setTimeout(function(){location.reload()},900)}catch(e){toast("No pude leer ese archivo")}};r.readAsText(f);this.value=""};
+bkShow();
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+(function(){var t=bkLast(),hoy=new Date();var dias=null;try{var raw=localStorage.getItem("cvpili_bkms");if(raw)dias=(Date.now()-+raw)/864e5}catch(e){}
+ if(dias!==null&&dias>=14&&(TR.length||K.t>0))setTimeout(function(){toast("💾 Hace más de 2 semanas que no descargás una copia. Está en Ajustes.")},2500)})();
+$("bdl").addEventListener("click",function(){try{localStorage.setItem("cvpili_bkms",String(Date.now()))}catch(e){}});
+try{if(!localStorage.getItem("cvpili_bkms"))localStorage.setItem("cvpili_bkms",String(Date.now()))}catch(e){}
+</script>
+<script>if("serviceWorker"in navigator&&location.protocol.indexOf("http")===0){addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body>
+</html>
